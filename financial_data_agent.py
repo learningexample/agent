@@ -6,6 +6,8 @@ Specialized agent for retrieving stock prices, market data, and financial produc
 import json
 import time
 import random
+import pandas as pd
+import os
 from typing import Dict, Any
 from flask import Flask, request, jsonify
 from dataclasses import dataclass
@@ -31,55 +33,64 @@ class FinancialDataAgent:
         self.app = Flask(__name__)
         self.setup_routes()
         
-        # Sample market data (simulated real-time prices)
-        self.market_data = {
+        # Load market data and product info from CSV files
+        self.market_data, self.product_info = self.load_market_data()
+    
+    def load_market_data(self) -> tuple[Dict[str, Dict], Dict[str, Dict]]:
+        """Load market data and product info from CSV files"""
+        try:
+            # Load market data
+            market_df = pd.read_csv('data/market_data.csv')
+            product_df = pd.read_csv('data/product_info.csv')
+            
+            market_data = {}
+            product_info = {}
+            
+            # Process market data
+            for _, row in market_df.iterrows():
+                symbol = row['symbol']
+                market_data[symbol] = {
+                    "price": row['price'],
+                    "change": row['change'],
+                    "change_pct": row['change_pct'],
+                    "volume": row['volume'],
+                    "market_cap": row['market_cap'] if pd.notna(row['market_cap']) else None
+                }
+            
+            # Process product info
+            for _, row in product_df.iterrows():
+                symbol = row['symbol']
+                product_info[symbol] = {
+                    "sector": row['sector'],
+                    "industry": row['industry'],
+                    "category": row['category']
+                }
+            
+            print(f"Loaded market data for {len(market_data)} symbols from CSV")
+            print(f"Loaded product info for {len(product_info)} symbols from CSV")
+            
+            return market_data, product_info
+            
+        except Exception as e:
+            print(f"Error loading data from CSV: {e}")
+            # Fallback to hardcoded data
+            return self.get_fallback_data()
+    
+    def get_fallback_data(self) -> tuple[Dict[str, Dict], Dict[str, Dict]]:
+        """Return fallback hardcoded data if CSV loading fails"""
+        market_data = {
             "AAPL": {"price": 185.25, "change": 2.15, "change_pct": 1.17, "volume": 45231000, "market_cap": 2.85e12},
             "MSFT": {"price": 378.50, "change": -1.25, "change_pct": -0.33, "volume": 32145000, "market_cap": 2.81e12},
             "GOOGL": {"price": 2785.40, "change": 15.30, "change_pct": 0.55, "volume": 28942000, "market_cap": 1.75e12},
-            "TSLA": {"price": 248.75, "change": -8.45, "change_pct": -3.29, "volume": 67283000, "market_cap": 791e9},
-            "NVDA": {"price": 875.20, "change": 12.80, "change_pct": 1.48, "volume": 41567000, "market_cap": 2.16e12},
-            "AMZN": {"price": 3285.10, "change": 22.40, "change_pct": 0.69, "volume": 35821000, "market_cap": 1.68e12},
-            "META": {"price": 485.60, "change": 7.90, "change_pct": 1.65, "volume": 29473000, "market_cap": 1.23e12},
-            "NFLX": {"price": 425.30, "change": -3.20, "change_pct": -0.75, "volume": 18945000, "market_cap": 189e9},
-            "AMD": {"price": 142.85, "change": 4.25, "change_pct": 3.07, "volume": 52183000, "market_cap": 231e9},
-            "SPY": {"price": 468.90, "change": 1.85, "change_pct": 0.40, "volume": 89472000, "market_cap": None},
-            "QQQ": {"price": 389.75, "change": 2.15, "change_pct": 0.55, "volume": 67291000, "market_cap": None},
-            "VTI": {"price": 245.60, "change": 0.95, "change_pct": 0.39, "volume": 42183000, "market_cap": None},
-            "JPM": {"price": 178.25, "change": -0.85, "change_pct": -0.47, "volume": 15392000, "market_cap": 524e9},
-            "JNJ": {"price": 162.40, "change": 1.15, "change_pct": 0.71, "volume": 12847000, "market_cap": 427e9},
-            "PG": {"price": 154.80, "change": 0.65, "change_pct": 0.42, "volume": 9284000, "market_cap": 371e9},
-            "KO": {"price": 59.35, "change": 0.25, "change_pct": 0.42, "volume": 18745000, "market_cap": 256e9},
-            "DIS": {"price": 95.70, "change": -1.40, "change_pct": -1.44, "volume": 23591000, "market_cap": 175e9},
-            "INTC": {"price": 24.85, "change": -0.35, "change_pct": -1.39, "volume": 89234000, "market_cap": 106e9},
-            "CRM": {"price": 285.40, "change": 8.90, "change_pct": 3.22, "volume": 19475000, "market_cap": 284e9},
-            "ADBE": {"price": 522.30, "change": 12.45, "change_pct": 2.44, "volume": 15829000, "market_cap": 241e9},
-            "SPOT": {"price": 198.75, "change": -4.25, "change_pct": -2.09, "volume": 8294000, "market_cap": 38e9}
         }
         
-        # Product categories and sectors
-        self.product_info = {
+        product_info = {
             "AAPL": {"sector": "Technology", "industry": "Consumer Electronics", "category": "Large Cap Growth"},
             "MSFT": {"sector": "Technology", "industry": "Software", "category": "Large Cap Growth"},
             "GOOGL": {"sector": "Technology", "industry": "Internet Services", "category": "Large Cap Growth"},
-            "TSLA": {"sector": "Consumer Cyclical", "industry": "Auto Manufacturers", "category": "Large Cap Growth"},
-            "NVDA": {"sector": "Technology", "industry": "Semiconductors", "category": "Large Cap Growth"},
-            "AMZN": {"sector": "Consumer Cyclical", "industry": "Internet Retail", "category": "Large Cap Growth"},
-            "META": {"sector": "Technology", "industry": "Social Media", "category": "Large Cap Growth"},
-            "NFLX": {"sector": "Communication Services", "industry": "Entertainment", "category": "Large Cap Growth"},
-            "AMD": {"sector": "Technology", "industry": "Semiconductors", "category": "Large Cap Growth"},
-            "SPY": {"sector": "ETF", "industry": "S&P 500 ETF", "category": "Index Fund"},
-            "QQQ": {"sector": "ETF", "industry": "Nasdaq-100 ETF", "category": "Index Fund"},
-            "VTI": {"sector": "ETF", "industry": "Total Stock Market ETF", "category": "Index Fund"},
-            "JPM": {"sector": "Financial Services", "industry": "Banks", "category": "Large Cap Value"},
-            "JNJ": {"sector": "Healthcare", "industry": "Drug Manufacturers", "category": "Large Cap Dividend"},
-            "PG": {"sector": "Consumer Defensive", "industry": "Household Products", "category": "Large Cap Dividend"},
-            "KO": {"sector": "Consumer Defensive", "industry": "Beverages", "category": "Large Cap Dividend"},
-            "DIS": {"sector": "Communication Services", "industry": "Entertainment", "category": "Large Cap Value"},
-            "INTC": {"sector": "Technology", "industry": "Semiconductors", "category": "Large Cap Value"},
-            "CRM": {"sector": "Technology", "industry": "Software", "category": "Large Cap Growth"},
-            "ADBE": {"sector": "Technology", "industry": "Software", "category": "Large Cap Growth"},
-            "SPOT": {"sector": "Communication Services", "industry": "Internet Services", "category": "Mid Cap Growth"}
         }
+        
+        return market_data, product_info
     
     def setup_routes(self):
         """Setup A2A protocol endpoints"""

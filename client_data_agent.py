@@ -6,6 +6,8 @@ Specialized agent for retrieving client information and portfolio holdings
 import json
 import time
 import random
+import pandas as pd
+import os
 from typing import Dict, Any
 from flask import Flask, request, jsonify
 from dataclasses import dataclass
@@ -31,58 +33,44 @@ class ClientDataAgent:
         self.app = Flask(__name__)
         self.setup_routes()
         
-        # Sample client portfolio data
-        self.client_portfolios = {
-            "CLIENT001": {
-                "name": "John Smith",
-                "account_value": 850000.00,
-                "holdings": [
-                    {"symbol": "AAPL", "shares": 500, "avg_cost": 150.00},
-                    {"symbol": "MSFT", "shares": 300, "avg_cost": 280.00},
-                    {"symbol": "GOOGL", "shares": 100, "avg_cost": 2500.00},
-                    {"symbol": "TSLA", "shares": 200, "avg_cost": 180.00},
-                    {"symbol": "NVDA", "shares": 150, "avg_cost": 420.00},
-                    {"symbol": "AMZN", "shares": 80, "avg_cost": 3100.00},
-                    {"symbol": "META", "shares": 250, "avg_cost": 320.00},
-                    {"symbol": "NFLX", "shares": 100, "avg_cost": 380.00},
-                    {"symbol": "AMD", "shares": 400, "avg_cost": 95.00},
-                    {"symbol": "SPY", "shares": 200, "avg_cost": 420.00},
-                    {"symbol": "QQQ", "shares": 150, "avg_cost": 350.00},
-                    {"symbol": "VTI", "shares": 300, "avg_cost": 220.00}
-                ]
-            },
-            "CLIENT002": {
-                "name": "Sarah Johnson", 
-                "account_value": 1200000.00,
-                "holdings": [
-                    {"symbol": "AAPL", "shares": 800, "avg_cost": 145.00},
-                    {"symbol": "MSFT", "shares": 600, "avg_cost": 275.00},
-                    {"symbol": "GOOGL", "shares": 150, "avg_cost": 2400.00},
-                    {"symbol": "TSLA", "shares": 100, "avg_cost": 200.00},
-                    {"symbol": "NVDA", "shares": 300, "avg_cost": 380.00},
-                    {"symbol": "JPM", "shares": 200, "avg_cost": 140.00},
-                    {"symbol": "JNJ", "shares": 250, "avg_cost": 160.00},
-                    {"symbol": "PG", "shares": 180, "avg_cost": 150.00},
-                    {"symbol": "KO", "shares": 400, "avg_cost": 58.00},
-                    {"symbol": "DIS", "shares": 150, "avg_cost": 110.00}
-                ]
-            },
-            "CLIENT003": {
-                "name": "Michael Chen",
-                "account_value": 650000.00,
-                "holdings": [
-                    {"symbol": "AAPL", "shares": 300, "avg_cost": 160.00},
-                    {"symbol": "MSFT", "shares": 200, "avg_cost": 290.00},
-                    {"symbol": "NVDA", "shares": 250, "avg_cost": 400.00},
-                    {"symbol": "AMD", "shares": 500, "avg_cost": 88.00},
-                    {"symbol": "INTC", "shares": 400, "avg_cost": 32.00},
-                    {"symbol": "CRM", "shares": 100, "avg_cost": 210.00},
-                    {"symbol": "ADBE", "shares": 80, "avg_cost": 480.00},
-                    {"symbol": "NFLX", "shares": 120, "avg_cost": 350.00},
-                    {"symbol": "SPOT", "shares": 90, "avg_cost": 180.00}
-                ]
-            }
-        }
+        # Load client portfolio data from CSV files
+        self.client_portfolios = self.load_client_data()
+    
+    def load_client_data(self) -> Dict[str, Any]:
+        """Load client data from CSV files"""
+        try:
+            # Load clients info
+            clients_df = pd.read_csv('data/clients.csv')
+            holdings_df = pd.read_csv('data/client_holdings.csv')
+            
+            portfolios = {}
+            
+            for _, client_row in clients_df.iterrows():
+                client_id = client_row['client_id']
+                
+                # Get holdings for this client
+                client_holdings = holdings_df[holdings_df['client_id'] == client_id]
+                holdings_list = []
+                
+                for _, holding_row in client_holdings.iterrows():
+                    holdings_list.append({
+                        "symbol": holding_row['symbol'],
+                        "shares": holding_row['shares'],
+                        "avg_cost": holding_row['avg_cost']
+                    })
+                
+                portfolios[client_id] = {
+                    "name": client_row['client_name'],
+                    "account_value": client_row['account_value'],
+                    "holdings": holdings_list
+                }
+            
+            return portfolios
+            
+        except Exception as e:
+            print(f"Error loading client data from CSV: {e}")
+            # Fallback to empty data if CSV files not found
+            return {}
     
     def setup_routes(self):
         """Setup A2A protocol endpoints"""

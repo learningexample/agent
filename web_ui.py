@@ -8,6 +8,7 @@ import json
 import time
 import threading
 import requests
+import concurrent.futures
 from datetime import datetime
 from a2a_protocol import A2AProtocolClient
 
@@ -46,16 +47,30 @@ class A2AWebUI:
     def check_agent_status(self, agent_name, endpoint):
         """Check if an agent is online"""
         try:
-            response = requests.get(f"{endpoint}/health", timeout=2)
-            self.agent_status[agent_name] = {
+            response = requests.get(f"{endpoint}/health", timeout=1)
+            return agent_name, {
                 "online": response.status_code == 200,
                 "last_check": datetime.now().strftime("%H:%M:%S")
             }
         except:
-            self.agent_status[agent_name] = {
+            return agent_name, {
                 "online": False,
                 "last_check": datetime.now().strftime("%H:%M:%S")
             }
+    
+    def check_all_agents_status(self):
+        """Check status of all agents concurrently"""
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            # Submit all health checks simultaneously
+            future_to_agent = {
+                executor.submit(self.check_agent_status, name, endpoint): name 
+                for name, endpoint in self.known_agents.items()
+            }
+            
+            # Collect results as they complete
+            for future in concurrent.futures.as_completed(future_to_agent):
+                agent_name, status = future.result()
+                self.agent_status[agent_name] = status
     
     def discover_capabilities(self, agent_name):
         """Discover agent capabilities and log the interaction"""
@@ -138,9 +153,7 @@ def dashboard():
 @app.route('/api/agents/status')
 def get_agent_status():
     """Get status of all known agents"""
-    for name, endpoint in ui_controller.known_agents.items():
-        ui_controller.check_agent_status(name, endpoint)
-    
+    ui_controller.check_all_agents_status()
     return jsonify(ui_controller.agent_status)
 
 @app.route('/api/agents/<agent_name>/capabilities')

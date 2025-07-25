@@ -14,7 +14,8 @@
       "Bash(cmd /c start:*)",
       "Bash(pkill:*)",
       "Bash(taskkill:*)",
-      "Bash(start cmd /k:*)"
+      "Bash(start cmd /k:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
