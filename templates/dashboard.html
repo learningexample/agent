@@ -304,7 +304,10 @@
             <div class="message-log" id="messageLog">
                 <div class="loading">No messages yet...</div>
             </div>
-            <button class="btn" onclick="refreshMessages()" style="margin-top: 1rem;">Refresh Messages</button>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn" onclick="refreshMessages()">Refresh Messages</button>
+                <button class="btn" onclick="clearMessages()" style="background-color: #e53e3e; border-color: #e53e3e;">Clear</button>
+            </div>
         </div>
 
         <!-- Demo Scenarios -->
@@ -508,6 +511,31 @@
                 
             } catch (error) {
                 console.error('Failed to refresh messages:', error);
+            }
+        }
+
+        async function clearMessages() {
+            try {
+                const response = await fetch('/api/messages/clear', {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    // Clear the message log display
+                    const messageLog = document.getElementById('messageLog');
+                    messageLog.innerHTML = '<div class="loading">No messages yet...</div>';
+                    
+                    // Reset message counters
+                    messageCount.sent = 0;
+                    messageCount.received = 0;
+                    document.getElementById('messagesSent').textContent = '0';
+                    document.getElementById('messagesReceived').textContent = '0';
+                    document.getElementById('lastActivity').textContent = 'Never';
+                } else {
+                    console.error('Failed to clear messages');
+                }
+            } catch (error) {
+                console.error('Failed to clear messages:', error);
             }
         }
 

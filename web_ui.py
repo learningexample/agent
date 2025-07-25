@@ -177,6 +177,12 @@ def get_message_log():
     """Get recent A2A protocol messages"""
     return jsonify(ui_controller.message_log)
 
+@app.route('/api/messages/clear', methods=['POST'])
+def clear_message_log():
+    """Clear all A2A protocol messages"""
+    ui_controller.message_log.clear()
+    return jsonify({"status": "success", "message": "Message log cleared"})
+
 @app.route('/api/charts/<chart_type>')
 def generate_chart(chart_type):
     """Generate specific chart types"""
