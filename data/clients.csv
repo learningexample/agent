@@ -1,0 +1,201 @@
+client_id,client_name,account_value
+CLIENT001,Bridgewater Associates,2850000000.00
+CLIENT002,Renaissance Technologies,1920000000.00
+CLIENT003,Man Group,1680000000.00
+CLIENT004,AQR Capital Management,1450000000.00
+CLIENT005,Two Sigma Investments,1320000000.00
+CLIENT006,Millennium Management,1180000000.00
+CLIENT007,Citadel LLC,2100000000.00
+CLIENT008,Elliott Management,980000000.00
+CLIENT009,D.E. Shaw & Co,1560000000.00
+CLIENT010,Baupost Group,870000000.00
+CLIENT011,Viking Global Investors,1240000000.00
+CLIENT012,Point72 Asset Management,1380000000.00
+CLIENT013,Pershing Square Capital,890000000.00
+CLIENT014,Third Point LLC,750000000.00
+CLIENT015,Appaloosa Management,680000000.00
+CLIENT016,Paulson & Co,590000000.00
+CLIENT017,Greenlight Capital,540000000.00
+CLIENT018,Jana Partners,720000000.00
+CLIENT019,Coatue Management,1650000000.00
+CLIENT020,Tiger Global Management,1890000000.00
+CLIENT021,Lone Pine Capital,1420000000.00
+CLIENT022,Och-Ziff Capital Management,830000000.00
+CLIENT023,Farallon Capital Management,910000000.00
+CLIENT024,Canyon Capital Advisors,760000000.00
+CLIENT025,Soros Fund Management,1150000000.00
+CLIENT026,Icahn Enterprises,980000000.00
+CLIENT027,Sculptor Capital Management,640000000.00
+CLIENT028,Carlson Capital,580000000.00
+CLIENT029,Moore Capital Management,520000000.00
+CLIENT030,Angelo Gordon & Co,470000000.00
+CLIENT031,Anchorage Capital Group,690000000.00
+CLIENT032,York Capital Management,550000000.00
+CLIENT033,Starboard Value,420000000.00
+CLIENT034,ValueAct Capital,380000000.00
+CLIENT035,Ruffer Investment Company,340000000.00
+CLIENT036,Marshall Wace,1280000000.00
+CLIENT037,Winton Group,780000000.00
+CLIENT038,Brevan Howard Asset Management,650000000.00
+CLIENT039,CQS,490000000.00
+CLIENT040,Lansdowne Partners,430000000.00
+CLIENT041,TCI Fund Management,1560000000.00
+CLIENT042,GLG Partners,720000000.00
+CLIENT043,Odey Asset Management,380000000.00
+CLIENT044,BlueCrest Capital Management,290000000.00
+CLIENT045,Blackstone Alternative Asset Management,1840000000.00
+CLIENT046,Apollo Global Management,1690000000.00
+CLIENT047,KKR & Co,1520000000.00
+CLIENT048,Carlyle Group,1380000000.00
+CLIENT049,Fortress Investment Group,920000000.00
+CLIENT050,Oaktree Capital Management,850000000.00
+CLIENT051,Ares Management,780000000.00
+CLIENT052,HarbourVest Partners,690000000.00
+CLIENT053,TPG Capital,1240000000.00
+CLIENT054,Warburg Pincus,1180000000.00
+CLIENT055,Silver Lake Partners,980000000.00
+CLIENT056,General Atlantic,890000000.00
+CLIENT057,Vista Equity Partners,820000000.00
+CLIENT058,Insight Partners,750000000.00
+CLIENT059,Advent International,680000000.00
+CLIENT060,Bain Capital,1450000000.00
+CLIENT061,Providence Equity Partners,640000000.00
+CLIENT062,Thoma Bravo,580000000.00
+CLIENT063,Leonard Green & Partners,520000000.00
+CLIENT064,Hellman & Friedman,470000000.00
+CLIENT065,Clayton Dubilier & Rice,420000000.00
+CLIENT066,Golden Gate Capital,380000000.00
+CLIENT067,Francisco Partners,340000000.00
+CLIENT068,GTCR,310000000.00
+CLIENT069,Madison Dearborn Partners,290000000.00
+CLIENT070,Welsh Carson Anderson & Stowe,260000000.00
+CLIENT071,Permira,1120000000.00
+CLIENT072,CVC Capital Partners,1050000000.00
+CLIENT073,Cinven,980000000.00
+CLIENT074,PAI Partners,920000000.00
+CLIENT075,BC Partners,860000000.00
+CLIENT076,Apax Partners,800000000.00
+CLIENT077,3i Group,740000000.00
+CLIENT078,Nordic Capital,680000000.00
+CLIENT079,EQT Partners,620000000.00
+CLIENT080,Altor Equity Partners,560000000.00
+CLIENT081,Triton Partners,520000000.00
+CLIENT082,Montagu Private Equity,480000000.00
+CLIENT083,Mid Europa Partners,440000000.00
+CLIENT084,Bridgepoint Capital,400000000.00
+CLIENT085,HgCapital,360000000.00
+CLIENT086,Charterhouse Capital Partners,330000000.00
+CLIENT087,Phoenix Equity Partners,300000000.00
+CLIENT088,Inflexion Private Equity,280000000.00
+CLIENT089,Duke Street Capital,250000000.00
+CLIENT090,LDC,230000000.00
+CLIENT091,Quantum Strategic Partners,850000000.00
+CLIENT092,Maverick Capital,790000000.00
+CLIENT093,Glenview Capital Management,720000000.00
+CLIENT094,Southeastern Asset Management,680000000.00
+CLIENT095,Brookfield Asset Management,1480000000.00
+CLIENT096,Centerbridge Partners,940000000.00
+CLIENT097,Searchlight Capital Partners,620000000.00
+CLIENT098,Advent International,580000000.00
+CLIENT099,Quadrangle Group,320000000.00
+CLIENT100,Lightyear Capital,280000000.00
+CLIENT101,Hudson Bay Capital Management,540000000.00
+CLIENT102,Whitebox Advisors,460000000.00
+CLIENT103,P. Schoenfeld Asset Management,390000000.00
+CLIENT104,Luxor Capital Group,350000000.00
+CLIENT105,Senator Investment Group,310000000.00
+CLIENT106,Chatham Asset Management,280000000.00
+CLIENT107,Kingdon Capital Management,250000000.00
+CLIENT108,HBK Capital Management,220000000.00
+CLIENT109,Falcon Edge Capital,580000000.00
+CLIENT110,Driehaus Capital Management,340000000.00
+CLIENT111,Tremblant Capital Group,290000000.00
+CLIENT112,Discovery Capital Management,260000000.00
+CLIENT113,Whale Rock Capital Management,480000000.00
+CLIENT114,Stockbridge Partners,420000000.00
+CLIENT115,Holocene Advisors,370000000.00
+CLIENT116,Sachem Head Capital Management,320000000.00
+CLIENT117,Matrix Capital Management,280000000.00
+CLIENT118,Tiger Management,950000000.00
+CLIENT119,Robertson Stephens,210000000.00
+CLIENT120,Polygon Investment Partners,380000000.00
+CLIENT121,Crispin Odey,160000000.00
+CLIENT122,Lansdowne Partners,290000000.00
+CLIENT123,Henderson Global Investors,240000000.00
+CLIENT124,Artemis Investment Management,200000000.00
+CLIENT125,Jupiter Asset Management,180000000.00
+CLIENT126,Schroders,820000000.00
+CLIENT127,Invesco,740000000.00
+CLIENT128,Aberdeen Asset Management,680000000.00
+CLIENT129,Standard Life Investments,620000000.00
+CLIENT130,Prudential Investment Management,560000000.00
+CLIENT131,Legal & General Investment Management,520000000.00
+CLIENT132,Aviva Investors,480000000.00
+CLIENT133,M&G Investments,440000000.00
+CLIENT134,Royal London Asset Management,400000000.00
+CLIENT135,Threadneedle Investments,360000000.00
+CLIENT136,Newton Investment Management,320000000.00
+CLIENT137,Columbia Threadneedle Investments,280000000.00
+CLIENT138,Janus Henderson Investors,640000000.00
+CLIENT139,Fidelity International,1280000000.00
+CLIENT140,Vanguard Asset Management,890000000.00
+CLIENT141,BlackRock Investment Management,1560000000.00
+CLIENT142,State Street Global Advisors,920000000.00
+CLIENT143,Northern Trust Asset Management,480000000.00
+CLIENT144,Goldman Sachs Asset Management,1240000000.00
+CLIENT145,JPMorgan Asset Management,1180000000.00
+CLIENT146,Morgan Stanley Investment Management,980000000.00
+CLIENT147,UBS Asset Management,890000000.00
+CLIENT148,Credit Suisse Asset Management,720000000.00
+CLIENT149,Deutsche Asset Management,650000000.00
+CLIENT150,BNP Paribas Investment Partners,580000000.00
+CLIENT151,Allianz Global Investors,840000000.00
+CLIENT152,AXA Investment Managers,760000000.00
+CLIENT153,Amundi Asset Management,1120000000.00
+CLIENT154,Natixis Investment Managers,680000000.00
+CLIENT155,Lyxor Asset Management,520000000.00
+CLIENT156,HSBC Global Asset Management,460000000.00
+CLIENT157,Pictet Asset Management,680000000.00
+CLIENT158,Union Investment,590000000.00
+CLIENT159,DWS Group,720000000.00
+CLIENT160,Deka Investment,480000000.00
+CLIENT161,Nomura Asset Management,640000000.00
+CLIENT162,Nikko Asset Management,380000000.00
+CLIENT163,Daiwa Asset Management,320000000.00
+CLIENT164,Sumitomo Mitsui Asset Management,450000000.00
+CLIENT165,Mitsubishi UFJ Asset Management,560000000.00
+CLIENT166,Mizuho Asset Management,290000000.00
+CLIENT167,T. Rowe Price,890000000.00
+CLIENT168,Franklin Templeton Investments,820000000.00
+CLIENT169,Capital Group,1450000000.00
+CLIENT170,Wellington Management,1280000000.00
+CLIENT171,AllianceBernstein,740000000.00
+CLIENT172,Putnam Investments,580000000.00
+CLIENT173,MFS Investment Management,520000000.00
+CLIENT174,Eaton Vance,460000000.00
+CLIENT175,Federated Investors,380000000.00
+CLIENT176,Legg Mason,340000000.00
+CLIENT177,Principal Global Investors,620000000.00
+CLIENT178,Nuveen Investments,580000000.00
+CLIENT179,American Century Investments,480000000.00
+CLIENT180,Janus Capital Group,420000000.00
+CLIENT181,Calpers,2840000000.00
+CLIENT182,Teacher Retirement System of Texas,1890000000.00
+CLIENT183,New York State Common Retirement Fund,1650000000.00
+CLIENT184,Florida State Board of Administration,1420000000.00
+CLIENT185,California State Teachers Retirement System,1280000000.00
+CLIENT186,Ohio Public Employees Retirement System,980000000.00
+CLIENT187,Pennsylvania Public School Employees,840000000.00
+CLIENT188,Michigan Retirement Systems,720000000.00
+CLIENT189,Virginia Retirement System,680000000.00
+CLIENT190,North Carolina Retirement Systems,620000000.00
+CLIENT191,Oregon Public Employees Retirement Fund,560000000.00
+CLIENT192,Washington State Investment Board,520000000.00
+CLIENT193,Wisconsin Investment Board,480000000.00
+CLIENT194,Iowa Public Employees Retirement System,420000000.00
+CLIENT195,Minnesota State Board of Investment,380000000.00
+CLIENT196,Connecticut Retirement Plans,340000000.00
+CLIENT197,Massachusetts Pension Reserves Investment Management,680000000.00
+CLIENT198,New Jersey Division of Investment,590000000.00
+CLIENT199,Maryland State Retirement Agency,460000000.00
+CLIENT200,Delaware Public Employees Retirement System,320000000.00

@@ -1,0 +1,106 @@
+symbol,sector,industry,category
+AAPL,Technology,Consumer Electronics,Large Cap Growth
+MSFT,Technology,Software,Large Cap Growth
+GOOGL,Technology,Internet Services,Large Cap Growth
+AMZN,Consumer Cyclical,Internet Retail,Large Cap Growth
+TSLA,Consumer Cyclical,Auto Manufacturers,Large Cap Growth
+NVDA,Technology,Semiconductors,Large Cap Growth
+META,Technology,Social Media,Large Cap Growth
+NFLX,Communication Services,Entertainment,Large Cap Growth
+AMD,Technology,Semiconductors,Large Cap Growth
+CRM,Technology,Software,Large Cap Growth
+ADBE,Technology,Software,Large Cap Growth
+SPOT,Communication Services,Internet Services,Mid Cap Growth
+INTC,Technology,Semiconductors,Large Cap Value
+ORCL,Technology,Software,Large Cap Value
+IBM,Technology,Software,Large Cap Value
+CSCO,Technology,Networking Equipment,Large Cap Value
+JPM,Financial Services,Banks,Large Cap Value
+BAC,Financial Services,Banks,Large Cap Value
+WFC,Financial Services,Banks,Large Cap Value
+C,Financial Services,Banks,Large Cap Value
+GS,Financial Services,Investment Banking,Large Cap Value
+MS,Financial Services,Investment Banking,Large Cap Value
+BRK.B,Financial Services,Diversified Financials,Large Cap Value
+V,Financial Services,Payment Processing,Large Cap Growth
+MA,Financial Services,Payment Processing,Large Cap Growth
+PYPL,Financial Services,Payment Processing,Large Cap Growth
+SQ,Financial Services,Payment Processing,Mid Cap Growth
+JNJ,Healthcare,Drug Manufacturers,Large Cap Dividend
+PFE,Healthcare,Drug Manufacturers,Large Cap Dividend
+UNH,Healthcare,Healthcare Plans,Large Cap Growth
+ABBV,Healthcare,Drug Manufacturers,Large Cap Dividend
+MRK,Healthcare,Drug Manufacturers,Large Cap Dividend
+TMO,Healthcare,Medical Devices,Large Cap Growth
+ABT,Healthcare,Medical Devices,Large Cap Dividend
+MDT,Healthcare,Medical Devices,Large Cap Dividend
+PG,Consumer Defensive,Household Products,Large Cap Dividend
+KO,Consumer Defensive,Beverages,Large Cap Dividend
+PEP,Consumer Defensive,Beverages,Large Cap Dividend
+WMT,Consumer Defensive,Discount Stores,Large Cap Value
+HD,Consumer Cyclical,Home Improvement,Large Cap Growth
+LOW,Consumer Cyclical,Home Improvement,Large Cap Growth
+NKE,Consumer Cyclical,Footwear & Accessories,Large Cap Growth
+SBUX,Consumer Cyclical,Restaurants,Large Cap Growth
+MCD,Consumer Cyclical,Restaurants,Large Cap Dividend
+DIS,Communication Services,Entertainment,Large Cap Value
+CMCSA,Communication Services,Telecom Services,Large Cap Value
+VZ,Communication Services,Telecom Services,Large Cap Dividend
+T,Communication Services,Telecom Services,Large Cap Dividend
+XOM,Energy,Oil & Gas Integrated,Large Cap Value
+CVX,Energy,Oil & Gas Integrated,Large Cap Dividend
+COP,Energy,Oil & Gas E&P,Large Cap Value
+SLB,Energy,Oil & Gas Equipment,Large Cap Value
+HAL,Energy,Oil & Gas Equipment,Large Cap Value
+NEE,Utilities,Regulated Electric,Large Cap Dividend
+SO,Utilities,Regulated Electric,Large Cap Dividend
+DUK,Utilities,Regulated Electric,Large Cap Dividend
+AEP,Utilities,Regulated Electric,Large Cap Dividend
+D,Utilities,Regulated Electric,Large Cap Dividend
+BA,Industrials,Aerospace & Defense,Large Cap Value
+LMT,Industrials,Aerospace & Defense,Large Cap Dividend
+RTX,Industrials,Aerospace & Defense,Large Cap Dividend
+GE,Industrials,Conglomerates,Large Cap Value
+CAT,Industrials,Farm & Heavy Construction Machinery,Large Cap Value
+DE,Industrials,Farm & Heavy Construction Machinery,Large Cap Dividend
+MMM,Industrials,Conglomerates,Large Cap Dividend
+HON,Industrials,Conglomerates,Large Cap Dividend
+UPS,Industrials,Integrated Freight & Logistics,Large Cap Dividend
+FDX,Industrials,Integrated Freight & Logistics,Large Cap Value
+LUV,Industrials,Airlines,Mid Cap Value
+DAL,Industrials,Airlines,Large Cap Value
+UAL,Industrials,Airlines,Large Cap Value
+SPY,ETF,S&P 500 ETF,Index Fund
+QQQ,ETF,Nasdaq-100 ETF,Index Fund
+VTI,ETF,Total Stock Market ETF,Index Fund
+IWM,ETF,Russell 2000 ETF,Index Fund
+EFA,ETF,EAFE ETF,Index Fund
+EEM,ETF,Emerging Markets ETF,Index Fund
+VEA,ETF,Developed Markets ETF,Index Fund
+VWO,ETF,Emerging Markets ETF,Index Fund
+TLT,ETF,20+ Year Treasury Bond ETF,Bond Fund
+IEF,ETF,7-10 Year Treasury Bond ETF,Bond Fund
+SHY,ETF,1-3 Year Treasury Bond ETF,Bond Fund
+LQD,ETF,Investment Grade Corporate Bond ETF,Bond Fund
+HYG,ETF,High Yield Corporate Bond ETF,Bond Fund
+VTEB,ETF,Tax-Exempt Bond ETF,Bond Fund
+GLD,ETF,Gold ETF,Commodity Fund
+SLV,ETF,Silver ETF,Commodity Fund
+USO,ETF,Oil ETF,Commodity Fund
+VNQ,ETF,Real Estate ETF,REIT Fund
+XLRE,ETF,Real Estate Select Sector SPDR Fund,REIT Fund
+IYR,ETF,Real Estate ETF,REIT Fund
+XLK,ETF,Technology Select Sector SPDR Fund,Sector Fund
+XLF,ETF,Financial Select Sector SPDR Fund,Sector Fund
+XLE,ETF,Energy Select Sector SPDR Fund,Sector Fund
+XLV,ETF,Health Care Select Sector SPDR Fund,Sector Fund
+XLI,ETF,Industrial Select Sector SPDR Fund,Sector Fund
+XLU,ETF,Utilities Select Sector SPDR Fund,Sector Fund
+XLP,ETF,Consumer Staples Select Sector SPDR Fund,Sector Fund
+XLY,ETF,Consumer Discretionary Select Sector SPDR Fund,Sector Fund
+XLB,ETF,Materials Select Sector SPDR Fund,Sector Fund
+BTC-USD,Cryptocurrency,Digital Currency,Alternative Investment
+ETH-USD,Cryptocurrency,Digital Currency,Alternative Investment
+BNB-USD,Cryptocurrency,Digital Currency,Alternative Investment
+ADA-USD,Cryptocurrency,Digital Currency,Alternative Investment
+SOL-USD,Cryptocurrency,Digital Currency,Alternative Investment
