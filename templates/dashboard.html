@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google A2A Protocol Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e1e5e9;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-online { background: #48bb78; }
+        .status-offline { background: #f56565; }
+
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .agent-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .agent-info {
+            flex: 1;
+        }
+
+        .agent-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .agent-status {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3182ce;
+            transform: translateY(-1px);
+        }
+
+        .btn-success { background: #48bb78; }
+        .btn-success:hover { background: #38a169; }
+
+        .btn-warning { background: #ed8936; }
+        .btn-warning:hover { background: #dd6b20; }
+
+        .message-log {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .message-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-sent {
+            background: #ebf8ff;
+            border-left: 3px solid #4299e1;
+        }
+
+        .message-received {
+            background: #f0fff4;
+            border-left: 3px solid #48bb78;
+        }
+
+        .message-timestamp {
+            color: #718096;
+            font-size: 0.75rem;
+        }
+
+        .demo-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .demo-card:hover {
+            border-color: #4299e1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .demo-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            color: #718096;
+        }
+
+        .result-display {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .portfolio-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .demo-section {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Google Agent2Agent Protocol Dashboard</h1>
+        <p>Interactive demonstration of AI agent communication using A2A protocol</p>
+    </div>
+
+    <div class="container">
+        <!-- Agent Status Panel -->
+        <div class="card">
+            <h2>🤖 Agent Status</h2>
+            <div class="agent-list" id="agentList">
+                <div class="loading">Loading agent status...</div>
+            </div>
+        </div>
+
+        <!-- Message Log Panel -->
+        <div class="card">
+            <h2>📡 A2A Protocol Messages</h2>
+            <div class="message-log" id="messageLog">
+                <div class="loading">No messages yet...</div>
+            </div>
+            <button class="btn" onclick="refreshMessages()" style="margin-top: 1rem;">Refresh Messages</button>
+        </div>
+
+        <!-- Demo Scenarios -->
+        <div class="demo-section">
+            <div class="demo-card" onclick="runDemo('capability_discovery')">
+                <div class="demo-icon">🔍</div>
+                <h3>Capability Discovery</h3>
+                <p>Discover what capabilities each agent provides</p>
+            </div>
+
+            <div class="demo-card" onclick="runDemo('portfolio_analysis')">
+                <div class="demo-icon">📈</div>
+                <h3>Portfolio Analysis</h3>
+                <p>Complete portfolio analysis: client data + market prices + charts</p>
+            </div>
+
+            <div class="demo-card" onclick="generateSpecificChart('top_holdings')">
+                <div class="demo-icon">📊</div>
+                <h3>Top Holdings Chart</h3>
+                <p>Generate interactive top 10 holdings bar chart</p>
+            </div>
+
+            <div class="demo-card" onclick="generateSpecificChart('pie_chart')">
+                <div class="demo-icon">🥧</div>
+                <h3>Portfolio Pie Chart</h3>
+                <p>Generate portfolio allocation pie chart</p>
+            </div>
+
+            <div class="demo-card" onclick="runDemo('data_analysis')">
+                <div class="demo-icon">📋</div>
+                <h3>Data Analysis Task</h3>
+                <p>Send a data processing task to the DataProcessor agent</p>
+            </div>
+
+            <div class="demo-card" onclick="runDemo('workflow')">
+                <div class="demo-icon">⚡</div>
+                <h3>Multi-Step Workflow</h3>
+                <p>Execute a complex workflow across multiple agents</p>
+            </div>
+        </div>
+
+        <!-- Custom Task Panel -->
+        <div class="card">
+            <h2>⚙️ Send Custom Task</h2>
+            <div class="task-form">
+                <div class="form-group">
+                    <label for="agentSelect">Target Agent:</label>
+                    <select id="agentSelect">
+                        <option value="DataProcessor">DataProcessor</option>
+                        <option value="ClientDataAgent">ClientDataAgent</option>
+                        <option value="FinancialDataAgent">FinancialDataAgent</option>
+                        <option value="ChartGenerationAgent">ChartGenerationAgent</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskType">Task Type:</label>
+                    <select id="taskType">
+                        <option value="data_analysis">Data Analysis</option>
+                        <option value="data_cleaning">Data Cleaning</option>
+                        <option value="trend_analysis">Trend Analysis</option>
+                        <option value="get_client_portfolio">Get Client Portfolio</option>
+                        <option value="aggregate_holdings">Aggregate Holdings</option>
+                        <option value="get_market_data">Get Market Data</option>
+                        <option value="calculate_market_values">Calculate Market Values</option>
+                        <option value="generate_top_holdings_chart">Generate Top Holdings Chart</option>
+                        <option value="generate_portfolio_pie_chart">Generate Portfolio Pie Chart</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataset">Dataset:</label>
+                    <input type="text" id="dataset" placeholder="e.g., sales_data.csv" value="custom_dataset.csv">
+                </div>
+                
+                <button class="btn btn-success" onclick="sendCustomTask()">Send Task</button>
+            </div>
+            
+            <div id="taskResult" class="result-display" style="display: none;"></div>
+        </div>
+
+        <!-- Real-time Stats -->
+        <div class="card">
+            <h2>📈 Real-time Stats</h2>
+            <div id="stats">
+                <p><strong>Messages Sent:</strong> <span id="messagesSent">0</span></p>
+                <p><strong>Messages Received:</strong> <span id="messagesReceived">0</span></p>
+                <p><strong>Active Agents:</strong> <span id="activeAgents">0</span></p>
+                <p><strong>Last Activity:</strong> <span id="lastActivity">Never</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Display Area -->
+    <div id="chartDisplay" class="chart-container" style="display: none;">
+        <div class="chart-title" id="chartTitle">Portfolio Analysis</div>
+        <div id="portfolioSummary" class="portfolio-summary"></div>
+        <div id="chartContent"></div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        let messageCount = { sent: 0, received: 0 };
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshAgentStatus();
+            refreshMessages();
+            
+            // Auto-refresh every 5 seconds
+            setInterval(() => {
+                refreshAgentStatus();
+                refreshMessages();
+            }, 5000);
+        });
+
+        async function refreshAgentStatus() {
+            try {
+                const response = await fetch('/api/agents/status');
+                const agents = await response.json();
+                
+                const agentList = document.getElementById('agentList');
+                agentList.innerHTML = '';
+                
+                let activeCount = 0;
+                
+                for (const [name, status] of Object.entries(agents)) {
+                    if (status.online) activeCount++;
+                    
+                    const agentDiv = document.createElement('div');
+                    agentDiv.className = 'agent-item';
+                    agentDiv.innerHTML = `
+                        <div class="agent-info">
+                            <div class="agent-name">
+                                <span class="status-indicator ${status.online ? 'status-online' : 'status-offline'}"></span>
+                                ${name}
+                            </div>
+                            <div class="agent-status">
+                                ${status.online ? 'Online' : 'Offline'} • Last check: ${status.last_check}
+                            </div>
+                        </div>
+                        <button class="btn" onclick="discoverCapabilities('${name}')">
+                            Discover
+                        </button>
+                    `;
+                    agentList.appendChild(agentDiv);
+                }
+                
+                document.getElementById('activeAgents').textContent = activeCount;
+                
+            } catch (error) {
+                console.error('Failed to refresh agent status:', error);
+            }
+        }
+
+        async function refreshMessages() {
+            try {
+                const response = await fetch('/api/messages');
+                const messages = await response.json();
+                
+                const messageLog = document.getElementById('messageLog');
+                
+                if (messages.length === 0) {
+                    messageLog.innerHTML = '<div class="loading">No messages yet...</div>';
+                    return;
+                }
+                
+                messageLog.innerHTML = '';
+                
+                // Count messages
+                messageCount.sent = messages.filter(m => m.direction === 'sent').length;
+                messageCount.received = messages.filter(m => m.direction === 'received').length;
+                
+                messages.slice(-20).forEach(message => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message-item message-${message.direction}`;
+                    
+                    const messageContent = typeof message.message === 'object' 
+                        ? JSON.stringify(message.message, null, 2)
+                        : message.message;
+                    
+                    const responseContent = message.response 
+                        ? '\nResponse: ' + JSON.stringify(message.response, null, 2)
+                        : '';
+                    
+                    messageDiv.innerHTML = `
+                        <div class="message-timestamp">${message.timestamp} • ${message.direction.toUpperCase()} → ${message.agent}</div>
+                        <div>${messageContent}${responseContent}</div>
+                    `;
+                    
+                    messageLog.appendChild(messageDiv);
+                });
+                
+                // Scroll to bottom
+                messageLog.scrollTop = messageLog.scrollHeight;
+                
+                // Update stats
+                document.getElementById('messagesSent').textContent = messageCount.sent;
+                document.getElementById('messagesReceived').textContent = messageCount.received;
+                document.getElementById('lastActivity').textContent = new Date().toLocaleTimeString();
+                
+            } catch (error) {
+                console.error('Failed to refresh messages:', error);
+            }
+        }
+
+        async function discoverCapabilities(agentName) {
+            try {
+                const response = await fetch(`/api/agents/${agentName}/capabilities`);
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(`Error: ${result.error}`);
+                } else {
+                    alert(`Agent: ${result.name}\nCapabilities: ${result.capabilities.join(', ')}`);
+                }
+                
+                refreshMessages();
+            } catch (error) {
+                alert(`Failed to discover capabilities: ${error.message}`);
+            }
+        }
+
+        async function runDemo(demoType) {
+            try {
+                const response = await fetch(`/api/demo/run/${demoType}`);
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(`Demo failed: ${result.error}`);
+                } else {
+                    if (demoType === 'portfolio_analysis') {
+                        displayPortfolioAnalysis(result.results);
+                    } else {
+                        alert(`Demo "${demoType}" completed successfully!`);
+                    }
+                }
+                
+                refreshMessages();
+            } catch (error) {
+                alert(`Demo failed: ${error.message}`);
+            }
+        }
+
+        function displayPortfolioAnalysis(results) {
+            const chartDisplay = document.getElementById('chartDisplay');
+            const chartContent = document.getElementById('chartContent');
+            const portfolioSummary = document.getElementById('portfolioSummary');
+            const chartTitle = document.getElementById('chartTitle');
+            
+            // Show chart container
+            chartDisplay.style.display = 'block';
+            chartTitle.textContent = 'Portfolio Analysis Results';
+            
+            // Clear previous content
+            chartContent.innerHTML = '';
+            portfolioSummary.innerHTML = '';
+            
+            // Find the chart generation result
+            let chartResult = null;
+            let marketData = null;
+            
+            for (const step of results) {
+                if (step.step === 'chart_generation' && step.result.result && step.result.result.result) {
+                    chartResult = step.result.result.result;
+                }
+                if (step.step === 'market_data' && step.result.result && step.result.result.result) {
+                    marketData = step.result.result.result;
+                }
+            }
+            
+            if (marketData) {
+                // Display portfolio summary
+                portfolioSummary.innerHTML = `
+                    <div class="summary-card">
+                        <div class="summary-value">$${marketData.total_portfolio_value.toLocaleString()}</div>
+                        <div class="summary-label">Total Portfolio Value</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${marketData.unique_symbols}</div>
+                        <div class="summary-label">Unique Holdings</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${marketData.top_10_holdings.length}</div>
+                        <div class="summary-label">Top Holdings</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${marketData.top_10_holdings[0]?.symbol || 'N/A'}</div>
+                        <div class="summary-label">Largest Holding</div>
+                    </div>
+                `;
+            }
+            
+            if (chartResult && chartResult.chart_json) {
+                try {
+                    // Parse and display Plotly chart
+                    const chartData = JSON.parse(chartResult.chart_json);
+                    
+                    // Create chart container
+                    const chartDiv = document.createElement('div');
+                    chartDiv.id = 'plotlyChart';
+                    chartDiv.style.width = '100%';
+                    chartDiv.style.height = '600px';
+                    chartContent.appendChild(chartDiv);
+                    
+                    // Render Plotly chart
+                    Plotly.newPlot('plotlyChart', chartData.data, chartData.layout, {
+                        responsive: true,
+                        displayModeBar: true,
+                        modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+                    });
+                    
+                } catch (error) {
+                    console.error('Error rendering chart:', error);
+                    chartContent.innerHTML = '<p>Error rendering chart. Check console for details.</p>';
+                }
+            } else {
+                chartContent.innerHTML = '<p>No chart data available. Please check that all agents are running.</p>';
+            }
+            
+            // Scroll to chart
+            chartDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function generateSpecificChart(chartType) {
+            try {
+                const response = await fetch(`/api/charts/${chartType}`);
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(`Chart generation failed: ${result.error}`);
+                    return;
+                }
+                
+                displaySingleChart(result, chartType);
+                refreshMessages();
+            } catch (error) {
+                alert(`Chart generation failed: ${error.message}`);
+            }
+        }
+
+        function displaySingleChart(result, chartType) {
+            const chartDisplay = document.getElementById('chartDisplay');
+            const chartContent = document.getElementById('chartContent');
+            const portfolioSummary = document.getElementById('portfolioSummary');
+            const chartTitle = document.getElementById('chartTitle');
+            
+            // Show chart container
+            chartDisplay.style.display = 'block';
+            chartTitle.textContent = result.result?.result?.title || `${chartType} Chart`;
+            
+            // Clear previous content
+            chartContent.innerHTML = '';
+            portfolioSummary.innerHTML = '';
+            
+            if (result.result && result.result.result && result.result.result.chart_json) {
+                try {
+                    // Parse and display Plotly chart
+                    const chartData = JSON.parse(result.result.result.chart_json);
+                    
+                    // Create chart container
+                    const chartDiv = document.createElement('div');
+                    chartDiv.id = 'plotlyChart';
+                    chartDiv.style.width = '100%';
+                    chartDiv.style.height = '600px';
+                    chartContent.appendChild(chartDiv);
+                    
+                    // Render Plotly chart
+                    Plotly.newPlot('plotlyChart', chartData.data, chartData.layout, {
+                        responsive: true,
+                        displayModeBar: true,
+                        modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+                    });
+                    
+                    // Display chart info
+                    if (result.result.result.summary) {
+                        const summary = result.result.result.summary;
+                        portfolioSummary.innerHTML = `
+                            <div class="summary-card">
+                                <div class="summary-value">$${summary.total_value?.toLocaleString() || 'N/A'}</div>
+                                <div class="summary-label">Total Value</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${summary.holdings_count || 'N/A'}</div>
+                                <div class="summary-label">Holdings Count</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${summary.largest_holding?.symbol || 'N/A'}</div>
+                                <div class="summary-label">Largest Holding</div>
+                            </div>
+                        `;
+                    }
+                    
+                } catch (error) {
+                    console.error('Error rendering chart:', error);
+                    chartContent.innerHTML = '<p>Error rendering chart. Check console for details.</p>';
+                }
+            } else {
+                chartContent.innerHTML = '<p>No chart data available. Please check that all agents are running.</p>';
+            }
+            
+            // Scroll to chart
+            chartDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function sendCustomTask() {
+            const agent = document.getElementById('agentSelect').value;
+            const taskType = document.getElementById('taskType').value;
+            const dataset = document.getElementById('dataset').value;
+            
+            const taskData = {
+                dataset: dataset,
+                operations: ['clean', 'aggregate', 'analyze']
+            };
+            
+            try {
+                const response = await fetch(`/api/agents/${agent}/task`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        task_type: taskType,
+                        task_data: taskData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                const resultDisplay = document.getElementById('taskResult');
+                resultDisplay.style.display = 'block';
+                resultDisplay.textContent = JSON.stringify(result, null, 2);
+                
+                refreshMessages();
+            } catch (error) {
+                alert(`Task failed: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:developers.googleblog.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(uv pip install:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(uv:*)",
+      "Bash(where uv)",
+      "Bash(setx:*)",
+      "Bash(mkdir:*)",
+      "Bash(start python web_ui.py)",
+      "Bash(cmd /c start:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(start cmd /k:*)"
+    ],
+    "deny": []
+  }
+}
